@@ -101,25 +101,25 @@ void picker(node *first,int peg)
 void placer(node *first,int peg)
 {
     //printf("placers starts\n");
-  node *temp,*perv;
-  perv=(node *)malloc(sizeof(node));
-  perv=NULL;
+    node *temp,*perv;
+    perv=(node *)malloc(sizeof(node));
+    perv=NULL;
     temp =(node *)malloc(sizeof(node));
-   temp=first;
-   while((temp->next!=NULL)&&(temp->data<peg))
-   {
-       perv=temp;
-        temp=temp->next;
-   }
-   if(disk==1)
-   {
-       temp->data=peg;
-       return;
-   }
-   if(temp->data>perv->data)
-      perv->data=peg;
-   else
-    temp->data=peg;
+    temp=first;
+       while((temp->next!=NULL)&&(temp->data<peg))
+       {
+           perv=temp;
+            temp=temp->next;
+       }
+       if(disk==1)
+       {
+           temp->data=peg;
+           return;
+       }
+       if(temp->data>perv->data)
+          perv->data=peg;
+       else
+        temp->data=peg;
     //printf("placer ends\n");
 }
 
@@ -154,18 +154,26 @@ switch(des)
 }
 void toh(int n,char sr,char au, char de,int data)
 {
-
+   FILE *f;
+   f=fopen("output","a");
     if(n==1)
        {
            ++counter;
          printf("<------STEP NUMBER :%d----->\n\n",counter);
-        printf("\n%d FROM SOURCE TO DESTINATION %c to %c",n,sr,de);
+        fprintf(f,"<------STEP NUMBER :%d----->\n\n",counter);
+     fprintf(f,"\n%d FROM SOURCE TO DESTINATION %c to %c:\n\n",n,sr,de);
+        fclose(f);
+        printf("\n%d FROM SOURCE TO DESTINATION %c to %c\n\n",n,sr,de);
         mover(sr,de,n);
         return;
        }
 toh(n-1,sr,de,au,data);
-           ++counter;         printf("<------STEP NUMBER :%d------>\n\n",counter);
-    printf("\n%d FROM SOURCE TO DESTINATION %c to %c:",n,sr,de);
+           ++counter;
+            fprintf(f,"<------STEP NUMBER :%d----->\n\n",counter);
+         printf("<------STEP NUMBER :%d------>\n\n",counter);
+    printf("\n%d FROM SOURCE TO DESTINATION %c to %c:\n\n",n,sr,de);
+     fprintf(f,"\n%d FROM SOURCE TO DESTINATION %c to %c:\n\n",n,sr,de);
+        fclose(f);
    mover(sr,de,n);
     toh(n-1,au,sr,de,data);
 }
@@ -176,8 +184,8 @@ int main()
     FILE *f;
     f=fopen("output","a");
     int data;
-    int i,count=0;
-    counter=count;
+    int i;
+    counter=0;
     first1=(node *)malloc(sizeof(node));
     first2=(node *)malloc(sizeof(node));
     first3=(node *)malloc(sizeof(node));
@@ -187,6 +195,11 @@ int main()
 
     printf("NUMBER OF DISKS PLEASE(Number greater than zero):");
     scanf("%d",&disk);
+    if(disk<=0||isdigit(disk)==1)
+    {
+        printf("enter valid integer value\n\n");
+        continue;
+    }
     printf("---------------------------------------------------");
     fprintf(f,"---------------------------------------------------");
     printf("TOWER OF HANOI FOR %d DISK",disk);
