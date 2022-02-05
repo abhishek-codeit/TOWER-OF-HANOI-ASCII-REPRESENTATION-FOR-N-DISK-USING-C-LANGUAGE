@@ -186,9 +186,9 @@ int main()
     int data;
     int i;
     counter=0;
-    first1=(node *)malloc(sizeof(node));
-    first2=(node *)malloc(sizeof(node));
-    first3=(node *)malloc(sizeof(node));
+    // first1=(node *)malloc(sizeof(node));
+    // first2=(node *)malloc(sizeof(node));
+    // first3=(node *)malloc(sizeof(node));
     first1=NULL;
     first2=NULL;
     first3=NULL;
@@ -226,7 +226,7 @@ int main()
     free(temp3);
 
 fclose(f);
-    printf("Hello world!\n");
+
     }
     return 0;
 }
